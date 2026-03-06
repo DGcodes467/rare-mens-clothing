@@ -1,23 +1,19 @@
 /* ===============================
 GLOBAL
 =============================== */
+
 *{
 box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
 html,body{
 overflow-x:hidden;
-}
-
-body{
-font-family:Arial;
-margin:0;
+scroll-behavior:smooth;
+font-family:Arial, Helvetica, sans-serif;
 background:#F5F5F5;
 color:#0F0F0F;
-}
-
-html{
-scroll-behavior:smooth;
 }
 
 
@@ -56,29 +52,11 @@ width:70px;
 border-radius:50%;
 }
 
-.nav-center{
-display:flex;
-gap:18px;
-align-items:center;
-}
-
-.nav-center a{
-padding:10px 26px;
-border-radius:50px;
-border:1px solid #ddd;
-background:white;
-text-decoration:none;
-color:#111;
-font-weight:600;
-font-size:14px;
-box-shadow:0 3px 8px rgba(0,0,0,0.08);
-transition:0.25s;
-}
-
-.nav-center a:hover{
-background:#D4AF37;
-color:white;
-border-color:#D4AF37;
+#searchInput{
+padding:8px;
+border:1px solid #ccc;
+border-radius:6px;
+width:300px;
 }
 
 .cart-icon{
@@ -137,12 +115,45 @@ margin-top:20px;
 
 
 /* ===============================
+MOBILE CATEGORIES
+=============================== */
+
+.mobile-categories{
+display:flex;
+justify-content:center;
+gap:12px;
+padding:20px;
+flex-wrap:wrap;
+}
+
+.mobile-categories a{
+padding:8px 18px;
+border-radius:25px;
+border:1px solid #ddd;
+background:white;
+text-decoration:none;
+color:#111;
+font-size:14px;
+font-weight:600;
+box-shadow:0 3px 6px rgba(0,0,0,0.08);
+transition:0.25s;
+}
+
+.mobile-categories a:hover{
+background:#D4AF37;
+color:white;
+border-color:#D4AF37;
+}
+
+
+/* ===============================
 PRODUCTS
 =============================== */
 
 .section-title{
 margin-left:40px;
 margin-top:40px;
+font-size:26px;
 }
 
 .products{
@@ -150,6 +161,7 @@ display:flex;
 gap:30px;
 padding:30px 60px;
 overflow-x:auto;
+scroll-behavior:smooth;
 }
 
 .product{
@@ -320,11 +332,6 @@ color:white;
 border:none;
 }
 
-
-/* ===============================
-CHECKOUT BUTTON
-=============================== */
-
 .checkout-btn{
 width:100%;
 padding:12px;
@@ -357,11 +364,13 @@ display:block;
 }
 
 
-/* =====================================================
+/* ===============================
 MOBILE RESPONSIVE
-===================================================== */
+=============================== */
 
 @media (max-width:768px){
+
+/* NAVBAR */
 
 .navbar{
 display:grid;
@@ -371,31 +380,21 @@ gap:10px;
 padding:10px;
 }
 
-/* logo */
-
 .logo{
 grid-column:1;
 width:45px;
 }
 
-/* search bar center */
-
 #searchInput{
 grid-column:2;
 width:100%;
-
 }
-
-/* cart right */
 
 .cart-icon{
 grid-column:3;
 justify-self:end;
-
 }
 
-
-}
 /* HERO */
 
 .hero{
@@ -404,6 +403,28 @@ height:40vh;
 
 .hero-content h1{
 font-size:26px;
+}
+
+#heroImage{
+object-position:center;
+}
+
+/* CATEGORIES */
+
+.mobile-categories{
+display:flex;
+justify-content:flex-start;
+gap:10px;
+padding:15px 10px;
+overflow-x:auto;
+white-space:nowrap;
+flex-wrap:nowrap;
+}
+
+.mobile-categories a{
+flex:0 0 auto;
+font-size:13px;
+padding:6px 14px;
 }
 
 /* PRODUCTS */
@@ -426,39 +447,18 @@ height:220px;
 /* CART */
 
 .cart-drawer{
-position:fixed;
-top:0;
 right:-100%;
 width:100%;
 height:100vh;
-background:white;
-padding:20px;
-
-transition:0.3s;
-overflow-y:auto;
 }
 
 .cart-drawer.active{
 right:0;
 }
 
-
 .checkout-btn{
 position:sticky;
 bottom:10px;
-}
-
-#cart-items li{
-display:flex;
-flex-direction:column;
-gap:8px;
-font-size:14px;
-}
-
-.cart-qty{
-display:flex;
-align-items:center;
-gap:8px;
 }
 
 /* FOOTER */
@@ -469,54 +469,4 @@ text-align:center;
 gap:20px;
 }
 
-
-
-
-/* ===============================
-MOBILE CATEGORIES BELOW HERO
-=============================== */
-
-
-
-@media (max-width:768px){
-
-.mobile-categories{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-padding:15px 10px;
-overflow-x:auto;
-white-space:nowrap;
-flex-wrap:nowrap;
 }
-
-/* category buttons */
-
-.mobile-categories a{
-flex:0 0 auto;
-padding:6px 14px;
-border-radius:25px;
-border:1px solid #ddd;
-background:white;
-text-decoration:none;
-color:#111;
-font-size:13px;
-font-weight:600;
-box-shadow:0 3px 6px rgba(0,0,0,0.08);
-transition:0.25s;
-}
-
-/* gold hover */
-
-.mobile-categories a:hover{
-background:#D4AF37;
-color:white;
-border-color:#D4AF37;
-}
-
-}
-
-
-
-

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+
 <title>Admin Login</title>
 
 <style>
@@ -13,6 +14,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+margin:0;
 }
 
 .login-box{
@@ -21,6 +23,7 @@ padding:30px;
 border-radius:10px;
 box-shadow:0 5px 20px rgba(0,0,0,0.1);
 width:300px;
+text-align:center;
 }
 
 input{
@@ -38,6 +41,11 @@ background:black;
 color:white;
 border:none;
 cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{
+background:#D4AF37;
 }
 
 </style>
@@ -47,8 +55,11 @@ cursor:pointer;
 <body>
 
 <div class="login-box">
+
 <img src="images/logo.png" style="width:80px;border-radius:50%;display:block;margin:auto;">
+
 <h2>Admin Login</h2>
+
 <input type="email" id="email" placeholder="Admin Email">
 
 <input type="password" id="password" placeholder="Password">
@@ -59,19 +70,18 @@ cursor:pointer;
 
 </div>
 
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBvdBYSLanVfnz5TiTWAyxIKPbee8fMDYw",
-  authDomain: "rare-mens-clothing.firebaseapp.com",
-  projectId: "rare-mens-clothing",
-  storageBucket: "rare-mens-clothing.firebasestorage.app",
-  messagingSenderId: "409895222910",
-  appId: "1:409895222910:web:dca2c6d2431730077ba22f"
+apiKey: "AIzaSyBvdBYSLanVfnz5TiTWAyxIKPbee8fMDYw",
+authDomain: "rare-mens-clothing.firebaseapp.com",
+projectId: "rare-mens-clothing",
+storageBucket: "rare-mens-clothing.appspot.com",
+messagingSenderId: "409895222910",
+appId: "1:409895222910:web:dca2c6d2431730077ba22f"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -83,15 +93,15 @@ let email = document.getElementById("email").value;
 let password = document.getElementById("password").value;
 
 if(email === "" || password === ""){
+
 document.getElementById("error").innerText = "Please enter email and password";
 return;
+
 }
 
 signInWithEmailAndPassword(auth,email,password)
 
-.then((userCredential)=>{
-
-alert("Login successful");
+.then(()=>{
 
 window.location.href="admin.html";
 
@@ -99,7 +109,7 @@ window.location.href="admin.html";
 
 .catch((error)=>{
 
-document.getElementById("error").innerText = error.message;
+document.getElementById("error").innerText = "Invalid login credentials";
 
 });
 
@@ -108,5 +118,4 @@ document.getElementById("error").innerText = error.message;
 </script>
 
 </body>
-
 </html>

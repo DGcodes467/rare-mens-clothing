@@ -231,12 +231,19 @@ window.location.href="admin-login.html";
 
 window.addProduct = async function(){
 
-let name=document.getElementById("name").value;
+let name=document.getElementById("name").value.trim();
 let price=document.getElementById("price").value;
 let category=document.getElementById("category").value;
 let sizes=document.getElementById("sizes").value;
 
-let image=document.getElementById("image").files[0].name;
+let imageFile=document.getElementById("image").files[0];
+
+if(!name || !price || !category || !sizes || !imageFile){
+alert("Please fill all fields");
+return;
+}
+
+let image="images/"+imageFile.name;
 
 await addDoc(collection(db,"products"),{
 
@@ -244,11 +251,16 @@ name:name,
 price:Number(price),
 category:category,
 sizes:sizes,
-image:"images/"+image
+image:image
 
 });
 
 alert("Product added successfully");
+
+document.getElementById("name").value="";
+document.getElementById("price").value="";
+document.getElementById("sizes").value="";
+document.getElementById("image").value="";
 
 loadProducts();
 
@@ -296,6 +308,7 @@ container.innerHTML+=`
 
 }
 
+document.getElementById("productList").innerHTML="";
 loadProducts();
 
 

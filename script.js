@@ -33,11 +33,13 @@ async function loadStoreProducts(){
 
 const snapshot = await getDocs(collection(db,"products"));
 
+
 snapshot.forEach((docData)=>{
 
 let product = docData.data();
-
 let container;
+
+/* Detect category container */
 
 if(product.category === "shirts"){
 container = document.querySelector("#shirts .products");
@@ -57,6 +59,36 @@ container = document.querySelector("#trackpants .products");
 
 if(!container) return;
 
+
+/* Dynamic Sizes */
+
+let sizesHTML = "";
+
+if(product.category === "pants"){
+
+sizesHTML = `
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+`;
+
+}else{
+
+sizesHTML = `
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+`;
+
+}
+
+
+/* Insert Product */
+
 container.innerHTML += `
 
 <div class="product">
@@ -68,11 +100,7 @@ container.innerHTML += `
 <p class="price">₹${product.price}</p>
 
 <select class="size">
-<option value="">Select Size</option>
-<option>S</option>
-<option>M</option>
-<option>L</option>
-<option>XL</option>
+${sizesHTML}
 </select>
 
 <input type="number" class="qty" value="1" min="1">
@@ -179,7 +207,10 @@ total += itemTotal;
 });
 
 document.getElementById("cart-total").innerText = total;
-document.getElementById("cart-count").innerText = cart.length;
+let cartCount = document.getElementById("cart-count");
+if(cartCount){
+cartCount.innerText = cart.length;
+}
 
 }
 
@@ -255,7 +286,8 @@ let message = "Hello 👋 Greetings from Rare Mens Clothing!\n\n";
 message += "Order ID: " + orderId + "\n";
 message += "Date: " + date + "\n\n";
 
-message += "Order Details:\n\n";
+message += "🛒 Order Details\n";
+message += "------------------------\n\n";
 
 cart.forEach(item => {
 
@@ -268,8 +300,7 @@ message +=
 "Price: ₹" + itemTotal + "\n\n";
 
 });
-
-message += "Total Amount: ₹" + total;
+message += "\n💰 Total Amount: ₹" + total;
 
 /* Open WhatsApp */
 

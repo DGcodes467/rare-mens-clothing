@@ -28,36 +28,39 @@
 
 
 
+<!-- NAVBAR -->
+
 <nav class="navbar">
+
+<!-- LOGO -->
 
 <div class="nav-left">
 <img src="images/logo.png" class="logo">
 </div>
 
-<div class="nav-center">
-<a href="#shirts">Shirts</a>
-<a href="#tshirts">T-Shirts</a>
-<a href="#pants">Pants</a>
-<a href="#trackpants">Track Pants</a>
+
+<!-- SEARCH -->
+
+<div class="nav-search">
+<input type="text" id="searchInput" placeholder="Search products...">
 </div>
+
+
+<!-- CART -->
 
 <div class="nav-right">
 
-<input type="text" id="searchInput" placeholder="Search products...">
-
 <div class="cart-icon" onclick="toggleCart()">
-<span class="cart-icon">🛒 <span id="cart-count">0</span></span>
+🛒 <span id="cart-count">0</span>
 </div>
-
-
-
 
 </div>
 
 </nav>
 
 
-<!-- HERO -->
+
+<!-- HERO SECTION -->
 
 <section class="hero">
 
@@ -75,14 +78,23 @@
 
 </section>
 
+
+
+<!-- CATEGORIES BELOW HERO -->
+
 <div class="mobile-categories">
 
 <a href="#shirts">Shirts</a>
+
 <a href="#tshirts">T-Shirts</a>
+
 <a href="#pants">Pants</a>
+
 <a href="#trackpants">Track Pants</a>
 
 </div>
+
+
 
 
 
@@ -646,7 +658,7 @@ target="_blank">
 
 <h3>Total ₹<span id="cart-total">0</span></h3>
 
-<button onclick="checkout()">Checkout via WhatsApp</button>
+<button class="checkout-btn" onclick="checkout()">Checkout via WhatsApp</button>
 
 </div>
 
