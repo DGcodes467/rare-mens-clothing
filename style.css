@@ -225,6 +225,11 @@ margin:10px 0;
 font-size:16px;
 }
 
+.contact a,
+.contact p{
+white-space:nowrap;
+font-size:14px;
+}
 
 /* ===============================
 FOOTER
@@ -403,13 +408,39 @@ MOBILE RESPONSIVE
 @media(max-width:768px){
 
 .navbar{
-padding:10px 15px;
-flex-wrap:wrap;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 12px;
 }
 
 .logo{
 width:55px;
 }
+
+/* RIGHT SIDE */
+
+.nav-right{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+/* SEARCH */
+
+#searchInput{
+width:120px;
+padding:6px;
+font-size:12px;
+}
+
+/* CART */
+
+.cart-icon{
+font-size:20px;
+}
+
+
 
 .nav-center{
 width:100%;
@@ -432,21 +463,25 @@ height:35vh;
 font-size:26px;
 }
 
+@media (max-width:768px){
+
 .products{
-display:grid;
-grid-template-columns:1fr 1fr;
+display:flex;
 gap:12px;
-padding:10px;
-overflow:visible;
+overflow-x:auto;
+padding:15px;
+scroll-snap-type:x mandatory;
 }
 
 .product{
-min-width:unset;
-padding:12px;
+min-width:180px;
+scroll-snap-align:start;
 }
 
 .product img{
 height:150px;
+}
+
 }
 
 .cart-drawer{
