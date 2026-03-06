@@ -442,17 +442,26 @@ font-size:20px;
 
 
 
+@media (max-width:768px){
+
 .nav-center{
-width:100%;
+display:flex;
+flex-direction:row;
 justify-content:center;
-flex-wrap:wrap;
+align-items:center;
 gap:8px;
+flex-wrap:wrap;
 margin-top:10px;
 }
 
+/* category buttons */
+
 .nav-center a{
-font-size:13px;
-padding:6px 14px;
+font-size:12px;
+padding:6px 10px;
+border-radius:20px;
+}
+
 }
 
 .hero{
@@ -479,13 +488,18 @@ scroll-snap-align:start;
 }
 
 .product img{
-height:150px;
+height:200px;
+object-fit:cover;
 }
 
 }
+
+@media (max-width:768px){
 
 .cart-drawer{
 width:100%;
+}
+
 }
 
 .footer{
