@@ -252,8 +252,10 @@ padding:10px;
 z-index:1000;
 }
 
-.whatsapp-float{right:15px;}
-.call-float{right:15px;
+.whatsapp-float img,
+.call-float img{
+width:30px;
+height:30px;
 }
 
 
