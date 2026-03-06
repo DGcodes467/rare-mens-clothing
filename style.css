@@ -512,3 +512,106 @@ cursor:pointer;
 border-radius:5px;
 width:100%;
 }
+
+/* ===============================
+MOBILE RESPONSIVE FIX
+================================ */
+
+@media (max-width:768px){
+
+/* NAVBAR */
+
+.navbar{
+flex-direction:column;
+align-items:center;
+gap:10px;
+padding:10px;
+}
+
+.nav-center{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+}
+
+.nav-center a{
+padding:8px 15px;
+font-size:14px;
+}
+
+/* LOGO */
+
+.logo{
+width:70px;
+margin-bottom:5px;
+}
+
+/* SEARCH */
+
+#searchInput{
+width:80%;
+margin-top:5px;
+}
+
+/* HERO */
+
+.hero{
+height:60vh;
+}
+
+.hero img{
+height:100%;
+object-fit:cover;
+}
+
+.hero-content h1{
+font-size:32px;
+}
+
+.hero-content p{
+font-size:14px;
+}
+
+/* PRODUCTS GRID */
+
+.products{
+grid-template-columns:1fr;
+padding:10px;
+}
+
+/* PRODUCT CARD */
+
+.product{
+width:100%;
+}
+
+/* FLOATING BUTTONS */
+
+.whatsapp-float{
+right:10px;
+bottom:80px;
+width:50px;
+}
+
+.call-float{
+right:10px;
+bottom:140px;
+width:50px;
+}
+
+/* CART DRAWER */
+
+.cart-drawer{
+width:90%;
+}
+
+/* FOOTER */
+
+.footer{
+flex-direction:column;
+text-align:center;
+gap:20px;
+}
+
+}
