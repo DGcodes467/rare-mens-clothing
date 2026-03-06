@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Dashboard | Rare Mens Clothing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f5f5f5;
+}
+
+/* HEADER */
+
+.header{
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
+font-size:20px;
+}
+
+/* CONTAINER */
+
+.container{
+display:flex;
+padding:30px;
+gap:40px;
+flex-wrap:wrap;
+}
+
+/* FORM */
+
+.form-box{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+width:350px;
+}
+
+.form-box h3{
+margin-bottom:15px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:8px 0;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+width:100%;
+padding:12px;
+background:black;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:5px;
+}
+
+button:hover{
+background:#D4AF37;
+}
+
+/* PRODUCTS LIST */
+
+.products{
+flex:1;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+gap:20px;
+}
+
+.product-card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.product-card img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.price{
+font-weight:bold;
+margin:5px 0;
+}
+
+.delete-btn{
+background:red;
+margin-top:10px;
+}
+
+.delete-btn:hover{
+background:#cc0000;
+}
+
+.logout{
+margin:20px;
+width:200px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="header">
+Rare Mens Clothing Admin Panel
+</div>
+
+
+<div class="container">
+
+
+<!-- ADD PRODUCT FORM -->
+
+<div class="form-box">
+
+<h3>Add Product</h3>
+
+<input type="text" id="name" placeholder="Product Name">
+
+<input type="number" id="price" placeholder="Price">
+
+<select id="category">
+<option value="shirts">Shirts</option>
+<option value="tshirts">T-Shirts</option>
+<option value="pants">Pants</option>
+<option value="trackpants">Track Pants</option>
+</select>
+
+<input type="text" id="sizes" placeholder="Sizes (S,M,L,XL)">
+
+<input type="file" id="image">
+
+<button onclick="addProduct()">Add Product</button>
+
+</div>
+
+
+<!-- PRODUCTS LIST -->
+
+<div class="products" id="productList"></div>
+
+
+</div>
+
+
+<center>
+<button class="logout" onclick="logout()">Logout</button>
+</center>
+
+
+<script type="module">
+
+/* ===============================
+   FIREBASE IMPORT
+================================ */
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
+
+/* ===============================
+   FIREBASE CONFIG
+================================ */
+
+const firebaseConfig = {
+apiKey: "AIzaSyBvdBYSLanVfnz5TiTWAyxIKPbee8fMDYw",
+authDomain: "rare-mens-clothing.firebaseapp.com",
+projectId: "rare-mens-clothing",
+storageBucket: "rare-mens-clothing.firebasestorage.app",
+messagingSenderId: "409895222910",
+appId: "1:409895222910:web:dca2c6d2431730077ba22f"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+
+/* ===============================
+   LOGIN PROTECTION
+================================ */
+
+onAuthStateChanged(auth,(user)=>{
+
+if(!user){
+
+alert("Please login first");
+
+window.location.href="admin-login.html";
+
+}
+
+});
+
+
+/* ===============================
+   ADD PRODUCT
+================================ */
+
+window.addProduct = async function(){
+
+let name=document.getElementById("name").value;
+let price=document.getElementById("price").value;
+let category=document.getElementById("category").value;
+let sizes=document.getElementById("sizes").value;
+
+let image=document.getElementById("image").files[0].name;
+
+await addDoc(collection(db,"products"),{
+
+name:name,
+price:Number(price),
+category:category,
+sizes:sizes,
+image:"images/"+image
+
+});
+
+alert("Product added successfully");
+
+loadProducts();
+
+}
+
+
+/* ===============================
+   LOAD PRODUCTS
+================================ */
+
+async function loadProducts(){
+
+const snapshot=await getDocs(collection(db,"products"));
+
+let container=document.getElementById("productList");
+
+container.innerHTML="";
+
+snapshot.forEach((docData)=>{
+
+let product=docData.data();
+let id=docData.id;
+
+container.innerHTML+=`
+
+<div class="product-card">
+
+<img src="${product.image}">
+
+<h4>${product.name}</h4>
+
+<div class="price">₹${product.price}</div>
+
+<p>${product.category}</p>
+
+<p>Sizes: ${product.sizes}</p>
+
+<button class="delete-btn" onclick="deleteProduct('${id}')">Delete</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+loadProducts();
+
+
+/* ===============================
+   DELETE PRODUCT
+================================ */
+
+window.deleteProduct = async function(id){
+
+let confirmDelete = confirm("Delete this product?");
+
+if(!confirmDelete) return;
+
+await deleteDoc(doc(db,"products",id));
+
+alert("Product deleted");
+
+loadProducts();
+
+}
+
+
+/* ===============================
+   LOGOUT
+================================ */
+
+window.logout=function(){
+
+signOut(auth).then(()=>{
+
+window.location.href="admin-login.html";
+
+});
+
+}
+
+</script>
+
+
+</body>
+</html>

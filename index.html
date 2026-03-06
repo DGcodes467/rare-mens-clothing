@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="description" content="Rare Mens Clothing - Premium mens shirts, t-shirts, pants and track pants. Shop stylish mens fashion online.">
+
+<meta name="keywords" content="mens clothing, mens shirts, mens fashion, rare mens clothing, mens t shirts, pants, track pants">
+
+<meta name="author" content="Rare Mens Clothing">
+<meta name="description" content="Rare Mens Clothing - Premium mens shirts, t-shirts, pants and track pants. Shop stylish mens fashion online.">
+
+<meta name="keywords" content="mens clothing, mens shirts, mens fashion, rare mens clothing, mens t shirts, pants, track pants">
+
+<meta name="author" content="Rare Mens Clothing">
+<link rel="icon" type="image/png" href="images/logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rare Mens Clothing</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="announcement-bar">
+🔥 Flat ₹200 OFF on Orders Above ₹1999 | Free Delivery | COD Available
+</div>
+
+
+
+<nav class="navbar">
+
+<div class="nav-left">
+<img src="images/logo.png" class="logo">
+</div>
+
+<div class="nav-center">
+<a href="#shirts">Shirts</a>
+<a href="#tshirts">T-Shirts</a>
+<a href="#pants">Pants</a>
+<a href="#trackpants">Track Pants</a>
+</div>
+
+<div class="nav-right">
+
+<input type="text" id="searchInput" placeholder="Search products...">
+
+<div class="cart-icon" onclick="toggleCart()">
+🛒 <span id="cart-count">0</span>
+</div>
+
+
+
+
+</div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+<img src="images/hero1.jpg" id="heroImage">
+
+<div class="hero-content">
+
+<h1>RARE MENS CLOTHING</h1>
+
+<p>Premium Fashion for Modern Men</p>
+
+<a href="#shirts" class="hero-btn">Shop Collection</a>
+
+</div>
+
+</section>
+
+
+
+
+<!-- SHIRTS -->
+
+<section id="shirts">
+
+<h2 class="section-title">Shirts</h2>
+
+<div class="products">
+
+<!-- Plain Shirt -->
+
+<div class="product">
+
+<img src="images/plain1.jpg"
+onmouseover="this.src='images/plain2.jpg'"
+onmouseout="this.src='images/plain1.jpg'">
+
+<h3>Plain Shirt</h3>
+
+<p class="price">₹1199</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Plain Shirt',1199,this)">Add to Cart</button>
+
+</div>
+
+
+<!-- Checked Shirt -->
+
+<div class="product">
+
+<img src="images/checked1.jpg">
+
+<h3>Checked Shirt</h3>
+
+<p class="price">₹1299</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Checked Shirt',1299,this)">Add to Cart</button>
+
+</div>
+
+
+<!-- Printed Shirt -->
+
+<div class="product">
+
+<img src="images/printed1.jpg">
+
+<h3>Printed Shirt</h3>
+
+<p class="price">₹1399</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Printed Shirt',1399,this)">Add to Cart</button>
+
+</div>
+
+
+<!-- Stripes Shirt -->
+
+<div class="product">
+
+<img src="images/stripes1.jpg">
+
+<h3>Stripes Shirt</h3>
+
+<p class="price">₹1199</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Stripes Shirt',1199,this)">Add to Cart</button>
+
+</div>
+
+
+<!-- Polo Shirt -->
+
+<div class="product">
+
+<img src="images/polo1.jpg">
+
+<h3>Polo Shirt</h3>
+
+<p class="price">₹1499</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Polo Shirt',1499,this)">Add to Cart</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- T SHIRTS -->
+
+<section id="tshirts">
+
+<h2 class="section-title">T-Shirts</h2>
+
+<div class="products">
+
+<div class="product">
+<img src="images/tshirt1.jpg">
+<h3>Basic Cotton T-Shirt</h3>
+<p class="price">₹699</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Basic Cotton T-Shirt',699,this)">Add to Cart</button>
+</div>
+
+
+<div class="product">
+<img src="images/tshirt2.jpg">
+<h3>Oversized T-Shirt</h3>
+<p class="price">₹799</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Oversized T-Shirt',799,this)">Add to Cart</button>
+</div>
+
+
+<div class="product">
+<img src="images/tshirt3.jpg">
+<h3>Graphic Print T-Shirt</h3>
+<p class="price">₹899</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Graphic Print T-Shirt',899,this)">Add to Cart</button>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PANTS -->
+
+<section id="pants">
+
+<h2 class="section-title">Pants</h2>
+
+<div class="products">
+
+
+<div class="product">
+<img src="images/mom1.jpg">
+<h3>MOM Fit Pants</h3>
+<p class="price">₹1599</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('MOM Fit Pants',1599,this)">Add to Cart</button>
+
+</div>
+
+
+<div class="product">
+<img src="images/baggy1.jpg">
+<h3>Baggy Pants</h3>
+<p class="price">₹1699</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Baggy Pants',1699,this)">Add to Cart</button>
+
+</div>
+
+
+<div class="product">
+<img src="images/gurkha1.jpg">
+<h3>Gurkha Pants</h3>
+<p class="price">₹1699</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Gurkha Pants',1699,this)">Add to Cart</button>
+
+</div>
+
+
+<div class="product">
+<img src="images/linen1.jpg">
+<h3>Linen Pants</h3>
+<p class="price">₹1599</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Linen Pants',1599,this)">Add to Cart</button>
+
+</div>
+
+
+<div class="product">
+<img src="images/relaxed1.jpg">
+<h3>Relaxed Fit Jeans</h3>
+<p class="price">₹1699</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Relaxed Fit Jeans',1699,this)">Add to Cart</button>
+
+</div>
+
+
+<div class="product">
+<img src="images/cargo1.jpg">
+<h3>Cargo Pants</h3>
+<p class="price">₹1799</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Cargo Pants',1799,this)">Add to Cart</button>
+
+</div>
+
+
+<div class="product">
+<img src="images/torn1.jpg">
+<h3>Torn Jeans</h3>
+<p class="price">₹1799</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Torn Jeans',1799,this)">Add to Cart</button>
+
+</div>
+
+
+<div class="product">
+<img src="images/ankle1.jpg">
+<h3>Ankle Pants</h3>
+<p class="price">₹1599</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Ankle Pants',1599,this)">Add to Cart</button>
+
+</div>
+
+
+<div class="product">
+<img src="images/bootcut.jpg">
+<h3>Bootcut Jeans</h3>
+<p class="price">₹1899</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>30</option>
+<option>32</option>
+<option>34</option>
+<option>36</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Bootcut Jeans',1899,this)">Add to Cart</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- TRACK PANTS -->
+
+<section id="trackpants">
+
+<h2 class="section-title">Track Pants</h2>
+
+<div class="products">
+
+<div class="product">
+<img src="images/track1.jpg">
+<h3>Classic Track Pants</h3>
+<p class="price">₹999</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Classic Track Pants',999,this)">Add to Cart</button>
+</div>
+
+
+<div class="product">
+<img src="images/track2.jpg">
+<h3>Sport Fit Track Pants</h3>
+<p class="price">₹1099</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Sport Fit Track Pants',1099,this)">Add to Cart</button>
+</div>
+
+
+<div class="product">
+<img src="images/track3.jpg">
+<h3>Premium Cotton Track Pants</h3>
+<p class="price">₹1199</p>
+
+<select class="size">
+<option value="">Select Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<input type="number" class="qty" value="1" min="1">
+
+<button onclick="addToCart('Premium Cotton Track Pants',1199,this)">Add to Cart</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact" class="contact">
+
+<h2>Contact Us</h2>
+
+<p>📞 Phone: <a href="tel:+917010085603">+91 7010085603</a></p>
+
+<p>📧 Email: raremensclothingtvk@gmail.com</p>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer">
+
+<div>
+<h3>Rare Mens Clothing</h3>
+<p>Premium Fashion</p>
+</div>
+
+<div>
+<h3>Address</h3>
+<p>Madurai Main Road</p>
+<p>Sivasakthi Complex</p>
+<p>Thuvarankurichi - 621314</p>
+</div>
+
+<div>
+<h3>Follow Us</h3>
+
+<div class="social-icons">
+
+<a href="https://instagram.com/raremensclothing" target="_blank">
+<img src="images/instagram.png">
+</a>
+
+<a href="https://wa.me/917010085603" target="_blank">
+<img src="images/whatsapp.png">
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+
+
+<script type="module" src="script.js"></script>
+
+
+
+<!-- FLOATING WHATSAPP -->
+
+<a href="https://wa.me/917010085603?text=Hello%20Greetings%20from%20Rare%20Mens%20Clothing!%20Thank%20you%20for%20visiting%20our%20store.%20How%20can%20we%20assist%20you%20today%3F" 
+class="whatsapp-float" 
+target="_blank">
+
+<img src="images/whatsapp.png">
+
+</a>
+
+<a href="tel:+917010085603" class="call-float">
+
+<img src="images/phone.png" alt="Call Now">
+
+</a>
+
+
+
+<!-- CART DRAWER -->
+
+<div id="cartDrawer" class="cart-drawer">
+
+<div class="cart-header">
+
+<h2>Your Cart</h2>
+
+<span class="close-cart" onclick="toggleCart()">✖</span>
+
+</div>
+
+<ul id="cart-items"></ul>
+
+<h3>Total ₹<span id="cart-total">0</span></h3>
+
+<button onclick="checkout()">Checkout via WhatsApp</button>
+
+</div>
+
+
+<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+
+</body>
+</html>
