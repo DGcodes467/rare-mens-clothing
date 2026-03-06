@@ -405,40 +405,30 @@ display:block;
 MOBILE RESPONSIVE
 =============================== */
 
-@media(max-width:768px){
+@media (max-width:768px){
 
 .navbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:10px 12px;
+padding:10px;
 }
 
 .logo{
-width:55px;
+width:50px;
 }
-
-/* RIGHT SIDE */
-
-.nav-right{
-display:flex;
-align-items:center;
-gap:8px;
-}
-
-/* SEARCH */
 
 #searchInput{
 width:120px;
-padding:6px;
 font-size:12px;
+padding:6px;
 }
-
-/* CART */
 
 .cart-icon{
 font-size:20px;
 }
+
+
 
 
 
@@ -519,11 +509,11 @@ right:0;
 
 .checkout-btn{
 position:sticky;
-bottom:0;
+bottom:10px;
+width:100%;
+padding:14px;
 background:black;
 color:white;
-padding:14px;
-width:100%;
 font-size:16px;
 }
 }
@@ -542,6 +532,34 @@ bottom:20px;
 .call-float{
 right:15px;
 bottom:100px;
+}
+
+}
+
+.mobile-categories{
+display:none;
+}
+
+@media (max-width:768px){
+
+.mobile-categories{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+padding:15px;
+background:#F5F5F5;
+}
+
+.mobile-categories a{
+padding:8px 18px;
+border-radius:25px;
+border:1px solid #ddd;
+background:white;
+text-decoration:none;
+color:black;
+font-size:13px;
+box-shadow:0 3px 6px rgba(0,0,0,0.08);
 }
 
 }
