@@ -664,24 +664,15 @@ body {
       </div>
     </div>
 
-    <div class="field">
-      <label>Product Image *</label>
-      <div class="upload-area" id="uploadArea">
-        <input type="file" id="f_image" accept="image/*" onchange="previewImage(event)">
-        <div class="upload-icon">🖼️</div>
-        <div class="upload-text">
-          <strong>Click to upload</strong> or drag & drop<br>
-          JPG, PNG, WEBP · Max 5MB
-        </div>
-      </div>
-      <img id="imagePreview" src="" alt="Preview">
-      <div class="upload-progress" id="uploadProgress">
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressFill"></div>
-        </div>
-        <div class="progress-label" id="progressLabel">Uploading...</div>
-      </div>
-    </div>
+  <div class="field">
+  <label>Image Filename *</label>
+  <input type="text" id="f_image" placeholder="e.g. plain1.jpg" oninput="previewImage()">
+  <p style="font-size:11px;color:var(--muted);margin-top:5px;">
+    📁 Put the image in your <strong style="color:var(--gold)">images/</strong> folder first, then type the filename here
+  </p>
+  <img id="imagePreview" src="" alt="Preview"
+    style="display:none;width:100%;height:160px;object-fit:cover;border-radius:8px;margin-top:10px;border:1px solid var(--border);">
+</div>
 
     <button class="btn-primary" onclick="saveProduct()" id="saveBtn">＋ Add Product</button>
     <button class="btn-secondary" id="cancelBtn" onclick="resetForm()" style="display:none;">✕ Cancel Edit</button>
@@ -833,17 +824,13 @@ function setSelectedSizes(arr) {
 }
 
 /* ── IMAGE PREVIEW ───────────────────────── */
-window.previewImage = function(event) {
-  let file = event.target.files[0];
-  if (!file) return;
-  if (file.size > 5 * 1024 * 1024) { showToast("Image must be under 5MB", "error"); return; }
-  let reader = new FileReader();
-  reader.onload = e => {
-    let p = document.getElementById("imagePreview");
-    p.src = e.target.result;
-    p.style.display = "block";
-  };
-  reader.readAsDataURL(file);
+window.previewImage = function() {
+  let filename = document.getElementById("f_image").value.trim();
+  let preview  = document.getElementById("imagePreview");
+  if (!filename) { preview.style.display = "none"; return; }
+  preview.src          = "images/" + filename;
+  preview.style.display = "block";
+  preview.onerror      = () => { preview.style.display = "none"; };
 };
 
 /* Drag & drop */
@@ -916,8 +903,7 @@ window.saveProduct = async function() {
   saveBtn.textContent = editId ? "⏳ Updating..." : "⏳ Uploading...";
 
   try {
-    let imageUrl = uploadedImageUrl;
-    if (imageFile) imageUrl = await uploadImage(imageFile);
+    let imageUrl = "images/" + document.getElementById("f_image").value.trim();
 
     let data = {
       name, price: Number(price), category,
