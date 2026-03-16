@@ -6,8 +6,7 @@
 <title>Admin Dashboard | Rare Mens Clothing</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<!-- Firebase SDKs (compat version - no module issues) -->
-<!-- ✅ CORRECT - v9 has compat builds -->
+<!-- Firebase Compat SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -53,7 +52,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--white); min
 .btn-logout:hover { border-color: var(--red); color: var(--red); }
 
 /* LAYOUT */
-.layout { display: grid; grid-template-columns: 340px 1fr; min-height: calc(100vh - 64px); }
+.layout { display: grid; grid-template-columns: 360px 1fr; min-height: calc(100vh - 64px); }
 
 /* SIDEBAR */
 .sidebar {
@@ -114,11 +113,8 @@ body { font-family: var(--font); background: var(--bg); color: var(--white); min
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
 }
-.field input.error, .field select.error {
-  border-color: var(--red);
-  box-shadow: 0 0 0 3px rgba(229,57,53,0.1);
-}
-.field textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+.field input.error, .field select.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(229,57,53,0.1); }
+.field textarea { resize: vertical; min-height: 75px; line-height: 1.5; }
 .field select option { background: var(--surface2); }
 
 /* SIZE CHIPS */
@@ -133,21 +129,48 @@ body { font-family: var(--font); background: var(--bg); color: var(--white); min
   border-radius: 8px;
   font-size: 13px; font-weight: 600;
   color: var(--muted);
-  cursor: pointer;
-  transition: 0.2s;
+  cursor: pointer; transition: 0.2s;
 }
 .size-chip input[type="checkbox"]:checked + label { background: var(--gold); border-color: var(--gold); color: var(--bg); }
 .size-chip label:hover { border-color: var(--gold); color: var(--gold); }
 
+/* IMAGE UPLOAD AREA */
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 22px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.upload-area:hover, .upload-area.dragover { border-color: var(--gold); background: rgba(212,175,55,0.05); }
+.upload-area input[type="file"] {
+  position: absolute; inset: 0;
+  opacity: 0; cursor: pointer;
+  width: 100%; height: 100%;
+  padding: 0; border: none; background: transparent;
+}
+.upload-icon { font-size: 30px; margin-bottom: 8px; }
+.upload-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.upload-text strong { color: var(--gold); }
+
 /* IMAGE PREVIEW */
 #imagePreview {
   display: none;
-  width: 100%; height: 160px;
+  width: 100%; height: 180px;
   object-fit: cover;
   border-radius: 8px;
   margin-top: 10px;
   border: 1px solid var(--border);
 }
+
+/* UPLOAD PROGRESS */
+.upload-progress { display: none; margin-top: 12px; }
+.progress-bar-bg { height: 5px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: var(--gold); border-radius: 4px; width: 0%; transition: width 0.3s; }
+.progress-label { font-size: 12px; color: var(--muted); margin-top: 5px; text-align: center; }
 
 /* BUTTONS */
 .btn-primary {
@@ -156,6 +179,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--white); min
   border: none; border-radius: 10px;
   font-family: var(--font); font-weight: 700; font-size: 15px;
   cursor: pointer; transition: 0.2s; margin-top: 6px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
 }
 .btn-primary:hover { background: var(--gold-dim); transform: translateY(-1px); }
 .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
@@ -221,7 +245,6 @@ body { font-family: var(--font); background: var(--bg); color: var(--white); min
 }
 @keyframes fadeInCard { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); border-color: var(--gold); }
-
 .card-img { width: 100%; height: 200px; object-fit: cover; display: block; background: var(--surface2); }
 .card-body { padding: 14px; }
 .card-category { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
@@ -331,13 +354,26 @@ body { font-family: var(--font); background: var(--bg); color: var(--white); min
       </div>
     </div>
 
+    <!-- CLOUDINARY IMAGE UPLOAD -->
     <div class="field">
-      <label>Image Filename *</label>
-      <input type="text" id="f_image" placeholder="e.g. plain1.jpg" oninput="previewImage()">
-      <p style="font-size:11px;color:var(--muted);margin-top:5px;">
-        📁 Put the image in your <strong style="color:var(--gold)">images/</strong> folder first, then type the filename
-      </p>
+      <label>Product Image *</label>
+      <div class="upload-area" id="uploadArea">
+        <input type="file" id="f_image" accept="image/*" onchange="handleImageSelect(event)">
+        <div id="uploadPlaceholder">
+          <div class="upload-icon">🖼️</div>
+          <div class="upload-text">
+            <strong>Click to upload</strong> or drag & drop<br>
+            JPG, PNG, WEBP · Max 5MB
+          </div>
+        </div>
+      </div>
       <img id="imagePreview" src="" alt="Preview">
+      <div class="upload-progress" id="uploadProgress">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-label" id="progressLabel">Uploading to Cloudinary...</div>
+      </div>
     </div>
 
     <button class="btn-primary" id="saveBtn" onclick="saveProduct()">＋ Add Product</button>
@@ -392,14 +428,18 @@ body { font-family: var(--font); background: var(--bg); color: var(--white); min
 
 <div id="toast"></div>
 
-<!-- ═══════════════════════════════════════
-     ALL LOGIC IN REGULAR SCRIPT (not module)
-     so onclick="" attributes work perfectly
-════════════════════════════════════════ -->
 <script>
 
-/* ── FIREBASE CONFIG ─────────────────────── */
-const firebaseConfig = {
+/* ══════════════════════════════════════════
+   CLOUDINARY CONFIG
+══════════════════════════════════════════ */
+var CLOUDINARY_CLOUD_NAME   = "dtvcithfw";
+var CLOUDINARY_UPLOAD_PRESET = "Rare mens Clothing Shop";
+
+/* ══════════════════════════════════════════
+   FIREBASE CONFIG
+══════════════════════════════════════════ */
+var firebaseConfig = {
   apiKey:            "AIzaSyBvdBYSLanVfnz5TiTWAyxIKPbee8fMDYw",
   authDomain:        "rare-mens-clothing.firebaseapp.com",
   projectId:         "rare-mens-clothing",
@@ -409,10 +449,12 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db   = firebase.firestore();
+var auth = firebase.auth();
+var db   = firebase.firestore();
 
-/* ── AUTH GUARD ──────────────────────────── */
+/* ══════════════════════════════════════════
+   AUTH GUARD
+══════════════════════════════════════════ */
 auth.onAuthStateChanged(function(user) {
   if (!user) {
     window.location.href = "admin-login.html";
@@ -421,12 +463,17 @@ auth.onAuthStateChanged(function(user) {
   }
 });
 
-/* ── STATE ───────────────────────────────── */
-var allProducts     = [];
-var activeFilter    = "all";
-var deleteTargetId  = null;
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+var allProducts    = [];
+var activeFilter   = "all";
+var deleteTargetId = null;
+var uploadedImageUrl = null; // stores Cloudinary URL after upload
 
-/* ── SIZE CONFIG ─────────────────────────── */
+/* ══════════════════════════════════════════
+   SIZE CONFIG
+══════════════════════════════════════════ */
 var SIZES = {
   shirts:     ["S","M","L","XL","XXL"],
   tshirts:    ["S","M","L","XL","XXL"],
@@ -434,28 +481,21 @@ var SIZES = {
   pants:      ["28","30","32","34","36","38"]
 };
 
-/* ── UPDATE SIZE CHIPS ───────────────────── */
 function updateSizeOptions() {
   var cat   = document.getElementById("f_category").value;
   var grid  = document.getElementById("sizeGrid");
   var sizes = SIZES[cat];
-
   if (!sizes) {
     grid.innerHTML = '<p style="color:var(--muted);font-size:13px;padding:4px 0;">Select a category first</p>';
     return;
   }
-
   grid.innerHTML = sizes.map(function(s) {
-    return '<div class="size-chip">' +
-      '<input type="checkbox" id="sz_' + s + '" value="' + s + '">' +
-      '<label for="sz_' + s + '">' + s + '</label>' +
-      '</div>';
+    return '<div class="size-chip"><input type="checkbox" id="sz_' + s + '" value="' + s + '"><label for="sz_' + s + '">' + s + '</label></div>';
   }).join("");
 }
 
 function getSelectedSizes() {
-  return Array.from(document.querySelectorAll("#sizeGrid input[type=checkbox]:checked"))
-    .map(function(c) { return c.value; });
+  return Array.from(document.querySelectorAll("#sizeGrid input[type=checkbox]:checked")).map(function(c) { return c.value; });
 }
 
 function setSelectedSizes(arr) {
@@ -464,28 +504,129 @@ function setSelectedSizes(arr) {
   });
 }
 
-/* ── IMAGE PREVIEW ───────────────────────── */
-function previewImage() {
-  var filename = document.getElementById("f_image").value.trim();
-  var preview  = document.getElementById("imagePreview");
-  if (!filename) { preview.style.display = "none"; return; }
-  preview.src          = "images/" + filename;
-  preview.style.display = "block";
-  preview.onerror      = function() { this.style.display = "none"; };
+/* ══════════════════════════════════════════
+   CLOUDINARY UPLOAD
+══════════════════════════════════════════ */
+function handleImageSelect(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+
+  if (file.size > 5 * 1024 * 1024) {
+    showToast("Image must be under 5MB", "error");
+    return;
+  }
+
+  // Show local preview immediately
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var preview = document.getElementById("imagePreview");
+    preview.src = e.target.result;
+    preview.style.display = "block";
+  };
+  reader.readAsDataURL(file);
+
+  // Upload to Cloudinary
+  uploadToCloudinary(file);
 }
 
-/* ── SAVE PRODUCT ────────────────────────── */
+function uploadToCloudinary(file) {
+  var formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+  formData.append("folder", "rare-mens-clothing");
+
+  var progressBar   = document.getElementById("uploadProgress");
+  var progressFill  = document.getElementById("progressFill");
+  var progressLabel = document.getElementById("progressLabel");
+
+  progressBar.style.display = "block";
+  progressFill.style.width  = "0%";
+  progressLabel.textContent = "Uploading... 0%";
+  uploadedImageUrl = null;
+
+  // Disable save button while uploading
+  document.getElementById("saveBtn").disabled = true;
+  document.getElementById("saveBtn").textContent = "⏳ Uploading image...";
+
+  var xhr = new XMLHttpRequest();
+
+  xhr.upload.onprogress = function(e) {
+    if (e.lengthComputable) {
+      var pct = Math.round((e.loaded / e.total) * 100);
+      progressFill.style.width  = pct + "%";
+      progressLabel.textContent = "Uploading... " + pct + "%";
+    }
+  };
+
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      var response = JSON.parse(xhr.responseText);
+      uploadedImageUrl = response.secure_url;
+
+      progressFill.style.width  = "100%";
+      progressLabel.textContent = "✓ Upload complete!";
+      progressLabel.style.color = "var(--green)";
+
+      setTimeout(function() {
+        progressBar.style.display = "none";
+        progressLabel.style.color = "";
+      }, 2000);
+
+      document.getElementById("saveBtn").disabled    = false;
+      document.getElementById("saveBtn").textContent = document.getElementById("editId").value ? "✓ Update Product" : "＋ Add Product";
+
+      showToast("✓ Image uploaded!", "success");
+    } else {
+      progressBar.style.display = "none";
+      uploadedImageUrl = null;
+      document.getElementById("saveBtn").disabled    = false;
+      document.getElementById("saveBtn").textContent = "＋ Add Product";
+      showToast("Image upload failed. Try again.", "error");
+      console.error("Cloudinary error:", xhr.responseText);
+    }
+  };
+
+  xhr.onerror = function() {
+    progressBar.style.display = "none";
+    uploadedImageUrl = null;
+    document.getElementById("saveBtn").disabled    = false;
+    document.getElementById("saveBtn").textContent = "＋ Add Product";
+    showToast("Upload failed. Check internet connection.", "error");
+  };
+
+  xhr.open("POST", "https://api.cloudinary.com/v1_1/" + CLOUDINARY_CLOUD_NAME + "/image/upload");
+  xhr.send(formData);
+}
+
+/* ══════════════════════════════════════════
+   DRAG & DROP
+══════════════════════════════════════════ */
+var ua = document.getElementById("uploadArea");
+ua.addEventListener("dragover",  function(e) { e.preventDefault(); ua.classList.add("dragover"); });
+ua.addEventListener("dragleave", function()  { ua.classList.remove("dragover"); });
+ua.addEventListener("drop", function(e) {
+  e.preventDefault();
+  ua.classList.remove("dragover");
+  var file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith("image/")) {
+    document.getElementById("f_image").files = e.dataTransfer.files;
+    handleImageSelect({ target: { files: [file] } });
+  }
+});
+
+/* ══════════════════════════════════════════
+   SAVE PRODUCT
+══════════════════════════════════════════ */
 function saveProduct() {
   var name        = document.getElementById("f_name").value.trim();
   var price       = document.getElementById("f_price").value.trim();
   var category    = document.getElementById("f_category").value;
   var description = document.getElementById("f_description").value.trim();
-  var imageFile   = document.getElementById("f_image").value.trim();
   var sizes       = getSelectedSizes();
   var editId      = document.getElementById("editId").value;
 
-  // Clear old errors
-  ["f_name","f_price","f_category","f_image"].forEach(function(id) {
+  // Clear errors
+  ["f_name","f_price","f_category"].forEach(function(id) {
     document.getElementById(id).classList.remove("error");
   });
 
@@ -494,9 +635,9 @@ function saveProduct() {
   if (!name)     { document.getElementById("f_name").classList.add("error");     valid = false; }
   if (!price)    { document.getElementById("f_price").classList.add("error");    valid = false; }
   if (!category) { document.getElementById("f_category").classList.add("error"); valid = false; }
-  if (!imageFile){ document.getElementById("f_image").classList.add("error");    valid = false; }
   if (sizes.length === 0) { showToast("Please select at least one size", "error"); valid = false; }
-  if (!valid) { showToast("Please fill all required fields", "error"); return; }
+  if (!uploadedImageUrl)  { showToast("Please wait for image to finish uploading", "error"); valid = false; }
+  if (!valid) return;
 
   var saveBtn = document.getElementById("saveBtn");
   saveBtn.disabled    = true;
@@ -508,21 +649,17 @@ function saveProduct() {
     category:    category,
     description: description,
     sizes:       sizes,
-    image:       "images/" + imageFile,
+    image:       uploadedImageUrl,
     updatedAt:   new Date().toISOString()
   };
 
-  var promise;
-  if (editId) {
-    promise = db.collection("products").doc(editId).update(data);
-  } else {
-    data.createdAt = new Date().toISOString();
-    promise = db.collection("products").add(data);
-  }
+  var promise = editId
+    ? db.collection("products").doc(editId).update(data)
+    : (function() { data.createdAt = new Date().toISOString(); return db.collection("products").add(data); })();
 
   promise
     .then(function() {
-      showToast(editId ? "✓ Product updated!" : "✓ Product added!", "success");
+      showToast(editId ? "✓ Product updated!" : "✓ Product added to store!", "success");
       resetForm();
       loadProducts();
     })
@@ -536,7 +673,9 @@ function saveProduct() {
     });
 }
 
-/* ── LOAD PRODUCTS ───────────────────────── */
+/* ══════════════════════════════════════════
+   LOAD PRODUCTS
+══════════════════════════════════════════ */
 function loadProducts() {
   db.collection("products").get()
     .then(function(snapshot) {
@@ -549,13 +688,14 @@ function loadProducts() {
     .catch(function(err) {
       console.error(err);
       showToast("Failed to load: " + err.message, "error");
-      document.getElementById("productCount").textContent = "Error loading";
       document.getElementById("productGrid").innerHTML =
         '<div class="empty-state"><div class="empty-icon">⚠️</div><p>' + err.message + '</p></div>';
     });
 }
 
-/* ── RENDER PRODUCTS ─────────────────────── */
+/* ══════════════════════════════════════════
+   RENDER PRODUCTS
+══════════════════════════════════════════ */
 function renderProducts() {
   var query    = (document.getElementById("searchInput").value || "").toLowerCase();
   var filtered = allProducts.filter(function(p) {
@@ -577,9 +717,7 @@ function renderProducts() {
     var sizeChips = (p.sizes || []).map(function(s) {
       return '<span class="card-size-chip">' + s + '</span>';
     }).join("");
-
-    var safeName  = (p.name  || "").replace(/'/g, "\\'");
-    var safeImage = (p.image || "").replace(/'/g, "\\'");
+    var safeName = (p.name || "").replace(/'/g, "\\'");
 
     return '<div class="product-card" style="animation-delay:' + (i * 0.04) + 's">' +
       '<img class="card-img" src="' + (p.image || "") + '" alt="' + safeName + '" loading="lazy" onerror="this.style.background=\'#222\'">' +
@@ -597,7 +735,9 @@ function renderProducts() {
   }).join("");
 }
 
-/* ── FILTER ──────────────────────────────── */
+/* ══════════════════════════════════════════
+   FILTER / STATS
+══════════════════════════════════════════ */
 function filterProducts(cat, btn) {
   activeFilter = cat;
   document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
@@ -605,7 +745,6 @@ function filterProducts(cat, btn) {
   renderProducts();
 }
 
-/* ── STATS ───────────────────────────────── */
 function updateStats() {
   ["shirts","tshirts","pants","trackpants"].forEach(function(cat) {
     var el = document.getElementById("count-" + cat);
@@ -613,7 +752,9 @@ function updateStats() {
   });
 }
 
-/* ── EDIT ────────────────────────────────── */
+/* ══════════════════════════════════════════
+   EDIT PRODUCT
+══════════════════════════════════════════ */
 function editProduct(id) {
   var p = allProducts.find(function(x) { return x.id === id; });
   if (!p) return;
@@ -626,17 +767,13 @@ function editProduct(id) {
   document.getElementById("f_category").value    = p.category || "";
   document.getElementById("f_description").value = p.description || "";
 
-  // Show filename only (strip images/ prefix)
-  var filename = (p.image || "").replace("images/", "");
-  document.getElementById("f_image").value = filename;
+  // Set existing Cloudinary URL
+  uploadedImageUrl = p.image || null;
 
+  // Show current image
   var preview = document.getElementById("imagePreview");
-  if (p.image) {
-    preview.src           = p.image;
-    preview.style.display = "block";
-  } else {
-    preview.style.display = "none";
-  }
+  if (p.image) { preview.src = p.image; preview.style.display = "block"; }
+  else { preview.style.display = "none"; }
 
   updateSizeOptions();
   setTimeout(function() { setSelectedSizes(p.sizes || []); }, 60);
@@ -649,7 +786,9 @@ function editProduct(id) {
   showToast("Editing: " + p.name, "info");
 }
 
-/* ── RESET FORM ──────────────────────────── */
+/* ══════════════════════════════════════════
+   RESET FORM
+══════════════════════════════════════════ */
 function resetForm() {
   document.getElementById("editId").value        = "";
   document.getElementById("f_name").value        = "";
@@ -660,8 +799,10 @@ function resetForm() {
   document.getElementById("sizeGrid").innerHTML  =
     '<p style="color:var(--muted);font-size:13px;padding:4px 0;">Select a category first</p>';
 
-  var p = document.getElementById("imagePreview");
-  p.src = ""; p.style.display = "none";
+  var preview = document.getElementById("imagePreview");
+  preview.src = ""; preview.style.display = "none";
+
+  uploadedImageUrl = null;
 
   document.getElementById("formTitle").textContent   = "Add New Product";
   document.getElementById("formIcon").textContent    = "＋";
@@ -669,12 +810,14 @@ function resetForm() {
   document.getElementById("saveBtn").disabled        = false;
   document.getElementById("cancelBtn").style.display = "none";
 
-  ["f_name","f_price","f_category","f_image"].forEach(function(id) {
+  ["f_name","f_price","f_category"].forEach(function(id) {
     document.getElementById(id).classList.remove("error");
   });
 }
 
-/* ── DELETE ──────────────────────────────── */
+/* ══════════════════════════════════════════
+   DELETE
+══════════════════════════════════════════ */
 function promptDelete(id, name) {
   deleteTargetId = id;
   document.getElementById("confirmMsg").textContent = '"' + name + '" will be permanently removed from your store.';
@@ -690,7 +833,6 @@ function confirmDeleteAction() {
   if (!deleteTargetId) return;
   var id = deleteTargetId;
   closeConfirm();
-
   db.collection("products").doc(id).delete()
     .then(function() {
       allProducts = allProducts.filter(function(p) { return p.id !== id; });
@@ -703,14 +845,18 @@ function confirmDeleteAction() {
     });
 }
 
-/* ── LOGOUT ──────────────────────────────── */
+/* ══════════════════════════════════════════
+   LOGOUT
+══════════════════════════════════════════ */
 function logout() {
   auth.signOut().then(function() {
     window.location.href = "admin-login.html";
   });
 }
 
-/* ── TOAST ───────────────────────────────── */
+/* ══════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════ */
 function showToast(msg, type) {
   type = type || "info";
   var t = document.getElementById("toast");
