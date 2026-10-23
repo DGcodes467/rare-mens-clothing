@@ -239,18 +239,20 @@
              " | Size: " + it.size + " | Qty: " + it.qty + " | " + rupee(it.price * it.qty);
     });
 
-    var msg =
-      "*New Order - Rare Mens Clothing*\n\n" +
-      lines.join("\n") + "\n\n" +
-      "Subtotal: " + rupee(sub) + "\n" +
-      (disc ? "Discount: -" + rupee(disc) + "\n" : "") +
-      "*Total: " + rupee(final) + "*\n" +
-      "Payment: Cash on Delivery\n\n" +
-      "*Delivery Details*\n" +
-      "Name: " + name + "\n" +
-      "Phone: +91 " + phone + "\n" +
-      "Address: " + address + "\n" +
-      "City: " + city + " - " + pincode;
+   var msg =
+  "Hello Rare Mens Clothing! 👋\n" +
+  "I would like to place an order:\n\n" +
+  lines.join("\n") + "\n\n" +
+  "Subtotal: " + rupee(sub) + "\n" +
+  (disc ? "Discount: -" + rupee(disc) + "\n" : "") +
+  "*Total: " + rupee(final) + "*\n" +
+  "Payment: Cash on Delivery\n\n" +
+  "*My Delivery Details*\n" +
+  "Name: " + name + "\n" +
+  "Phone: +91 " + phone + "\n" +
+  "Address: " + address + "\n" +
+  "City: " + city + " - " + pincode + "\n\n" +
+  "Please confirm my order. Thank you!";
 
     var url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg);
     var w = window.open(url, "_blank");
