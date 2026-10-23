@@ -88,7 +88,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 4px); }
 ========================================================= */
 
 .sale-bar {
-  background: #07090e;
+  background: #C9A24B;
   color: #fff;
   display: flex;
   align-items: center;
