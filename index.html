@@ -1,65 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
   <meta name="description" content="Rare Mens Clothing - Premium mens shirts, t-shirts, pants and track pants. Shop stylish mens fashion online.">
   <meta name="keywords" content="mens clothing, mens shirts, mens fashion, rare mens clothing, mens t shirts, pants, track pants">
   <meta name="author" content="Rare Mens Clothing">
+  <meta name="theme-color" content="#0a0a0a">
   <link rel="icon" type="image/png" href="images/logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rare Mens Clothing</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body id="top">
 
-<!-- ANNOUNCEMENT BAR -->
-<div class="announcement-bar">
-  🔥 Flat ₹200 OFF on Orders Above ₹1999 | Free Delivery | COD Available
+<!-- ═══════════════ ANNOUNCEMENT MARQUEE ═══════════════ -->
+<div class="announce" aria-label="Offers">
+  <div class="announce-track">
+    <span>Flat ₹200 OFF on orders above ₹1999</span>
+    <span>Free Delivery</span>
+    <span>Cash on Delivery Available</span>
+    <span>Flat ₹200 OFF on orders above ₹1999</span>
+    <span>Free Delivery</span>
+    <span>Cash on Delivery Available</span>
+    <!-- duplicate set for a seamless loop -->
+    <span>Flat ₹200 OFF on orders above ₹1999</span>
+    <span>Free Delivery</span>
+    <span>Cash on Delivery Available</span>
+    <span>Flat ₹200 OFF on orders above ₹1999</span>
+    <span>Free Delivery</span>
+    <span>Cash on Delivery Available</span>
+  </div>
 </div>
 
-<!-- NAVBAR -->
-<nav class="navbar">
+<!-- ═══════════════ SALE COUNTDOWN ═══════════════
+     Change the date in ui.js (SALE_END). Delete this block if you don't want it. -->
+<div class="sale-bar" id="saleBar">
+  <div class="sale-text"><span id="saleLabel">Festive Sale is Live</span><i class="live-dot"></i></div>
+  <div class="countdown" id="countdown">
+    <div><b id="cd-d">00</b><small>Day</small></div><em>:</em>
+    <div><b id="cd-h">00</b><small>Hrs</small></div><em>:</em>
+    <div><b id="cd-m">00</b><small>Min</small></div><em>:</em>
+    <div><b id="cd-s">00</b><small>Sec</small></div>
+  </div>
+</div>
+
+<!-- ═══════════════ NAVBAR (sits on top of the hero) ═══════════════ -->
+<nav class="navbar" id="navbar">
+
   <div class="nav-left">
-    <img src="images/logo.png" class="logo">
+    <button class="icon-btn" onclick="openMenu()" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
   </div>
-  <div class="nav-search">
-    <input type="text" id="searchInput" placeholder="Search products...">
-  </div>
+
+  <a class="brand" href="#top" aria-label="Rare Mens Clothing home">
+    <img src="images/logo.png" alt="Rare Mens Clothing logo" class="logo">
+    <span class="brand-text">
+      <span class="brand-rare">RARE</span>
+      <span class="brand-sub">Mens Clothing</span>
+    </span>
+  </a>
+
   <div class="nav-right">
-    <div class="cart-icon" id="cartIcon" onclick="toggleCart()">
-      🛒 <span id="cart-count">0</span>
+    <button class="icon-btn" onclick="toggleSearch()" aria-label="Search">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    </button>
+    <div class="cart-icon" id="cartIcon" onclick="toggleCart()" role="button" aria-label="Open cart">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span id="cart-count">0</span>
     </div>
+  </div>
+
+  <!-- Search panel (the input keeps id="searchInput" so script.js search still works) -->
+  <div class="search-panel" id="searchPanel">
+    <input type="text" id="searchInput" placeholder="Search shirts, pants, track pants..." autocomplete="off">
   </div>
 </nav>
 
-<!-- HERO SECTION -->
+<!-- ═══════════════ SIDE MENU ═══════════════ -->
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+<aside class="side-menu" id="sideMenu">
+  <div class="side-menu-head">
+    <span class="brand-rare">RARE</span>
+    <button class="icon-btn" onclick="closeMenu()" aria-label="Close menu">✕</button>
+  </div>
+  <nav class="side-links">
+    <a href="#shirts" onclick="closeMenu()">Shirts</a>
+    <a href="#tshirts" onclick="closeMenu()">T-Shirts</a>
+    <a href="#pants" onclick="closeMenu()">Pants</a>
+    <a href="#trackpants" onclick="closeMenu()">Track Pants</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </nav>
+  <div class="side-foot">
+    <a href="https://wa.me/917010085603" target="_blank" rel="noopener">Chat on WhatsApp</a>
+    <a href="tel:+917010085603">+91 70100 85603</a>
+  </div>
+</aside>
+
+<!-- ═══════════════ HERO ═══════════════ -->
 <section class="hero">
-  <img src="images/hero1.jpg" id="heroImage">
+  <img src="images/m2.jpeg" id="heroImage" alt="Rare Mens Clothing collection">
   <div class="hero-content">
-    <h1>RARE MENS CLOTHING</h1>
+    <span class="hero-eyebrow">New Season</span>
+    <h1>THE RARE EDIT</h1>
     <p>Premium Fashion for Modern Men</p>
     <a href="#shirts" class="hero-btn">Shop Collection</a>
-    
   </div>
 </section>
 
-<!-- CATEGORIES -->
-<div class="mobile-categories">
-  <a href="#shirts">Shirts</a>
-  <a href="#tshirts">T-Shirts</a>
-  <a href="#pants">Pants</a>
-  <a href="#trackpants">Track Pants</a>
-</div>
+<!-- ═══════════════ SHOP BY CATEGORY ═══════════════ -->
+<section class="categories">
+  <div class="section-head">
+    <span class="eyebrow">Explore</span>
+    <h2 class="section-title">Shop by Category</h2>
+  </div>
+  <div class="cat-grid">
+    <a href="#shirts" class="cat-tile">
+      <img src="images/plain1.jpg" alt="Shirts" loading="lazy">
+      <span class="cat-label">Shirts <i>→</i></span>
+    </a>
+    <a href="#tshirts" class="cat-tile">
+      <img src="images/tshirt1.jpg" alt="T-Shirts" loading="lazy">
+      <span class="cat-label">T-Shirts <i>→</i></span>
+    </a>
+    <a href="#pants" class="cat-tile">
+      <img src="images/mom1.jpg" alt="Pants" loading="lazy">
+      <span class="cat-label">Pants <i>→</i></span>
+    </a>
+    <a href="#trackpants" class="cat-tile">
+      <img src="images/track1.jpg" alt="Track Pants" loading="lazy">
+      <span class="cat-label">Track Pants <i>→</i></span>
+    </a>
+  </div>
+</section>
 
-<!-- SHIRTS -->
-<section id="shirts">
-  <h2 class="section-title">Shirts</h2>
+<!-- ═══════════════ SHIRTS ═══════════════ -->
+<section id="shirts" class="collection">
+  <div class="section-head">
+    <span class="eyebrow">The Collection</span>
+    <h2 class="section-title">Shirts</h2>
+  </div>
   <div class="products">
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Plain Shirt','₹649','images/plain1.jpg','A clean, crisp plain shirt crafted from premium cotton. Perfect for both casual and formal occasions.','shirts')">
-        <img src="images/plain1.jpg" onmouseover="this.src='images/plain2.jpg'" onmouseout="this.src='images/plain1.jpg'">
+        <img src="images/plain1.jpg" alt="Plain Shirt" loading="lazy" onmouseover="this.src='images/plain2.jpg'" onmouseout="this.src='images/plain1.jpg'">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Plain Shirt</h3>
@@ -71,7 +162,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Checked Shirt','₹599','images/checked1.jpg','Bold checks, relaxed fit. A timeless wardrobe staple with a modern edge.','shirts')">
-        <img src="images/checked1.jpg">
+        <img src="images/checked1.jpg" alt="Checked Shirt" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Checked Shirt</h3>
@@ -83,7 +174,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('viscos shirt','₹549','images/viscos.jpeg','Eye-catching prints on breathable fabric. Stand out effortlessly.','shirts')">
-        <img src="images/viscos.jpeg">
+        <img src="images/viscos.jpeg" alt="Printed Shirt" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Printed Shirt</h3>
@@ -95,7 +186,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Stripes Shirt','₹599','images/stripes1.jpg','Classic stripes never go out of style. Versatile, smart, and comfortable.','shirts')">
-        <img src="images/stripes1.jpg">
+        <img src="images/stripes1.jpg" alt="Stripes Shirt" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Stripes Shirt</h3>
@@ -107,7 +198,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Polo Shirt','₹749','images/polo1.jpg','Premium polo with a refined collar. Smart-casual perfection.','shirts')">
-        <img src="images/polo1.jpg">
+        <img src="images/polo1.jpg" alt="US/RS Polo Shirt" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>US/RS Polo Shirt</h3>
@@ -120,14 +211,27 @@
   </div>
 </section>
 
-<!-- T-SHIRTS -->
-<section id="tshirts">
-  <h2 class="section-title">T-Shirts</h2>
+<!-- ═══════════════ EDITORIAL BANNER ═══════════════ -->
+<section class="banner">
+  <img src="images/m3.jpeg" alt="" loading="lazy">
+  <div class="banner-content">
+    <span class="hero-eyebrow">Rare Mens Clothing</span>
+    <h2>Dress Rare.<br>Stand Out.</h2>
+    <a href="#pants" class="hero-btn">Explore Pants</a>
+  </div>
+</section>
+
+<!-- ═══════════════ T-SHIRTS ═══════════════ -->
+<section id="tshirts" class="collection">
+  <div class="section-head">
+    <span class="eyebrow">The Collection</span>
+    <h2 class="section-title">T-Shirts</h2>
+  </div>
   <div class="products">
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Basic Cotton T-Shirt','₹499','images/tshirt1.jpg','Pure cotton comfort for every day. Simple, clean, essential.','tshirts')">
-        <img src="images/tshirt1.jpg">
+        <img src="images/tshirt1.jpg" alt="Basic Cotton T-Shirt" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Basic Cotton T-Shirt</h3>
@@ -139,7 +243,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Oversized T-Shirt','₹599','images/tshirt2.jpg','The street-style essential. Dropped shoulders, relaxed fit, maximum cool.','tshirts')">
-        <img src="images/tshirt2.jpg">
+        <img src="images/tshirt2.jpg" alt="Oversized T-Shirt" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Oversized T-Shirt</h3>
@@ -151,7 +255,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Graphic Print T-Shirt','₹549','images/tshirt3.jpg','Bold graphics on soft cotton. Wear your personality.','tshirts')">
-        <img src="images/tshirt3.jpg">
+        <img src="images/tshirt3.jpg" alt="Graphic Print T-Shirt" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Graphic Print T-Shirt</h3>
@@ -164,14 +268,17 @@
   </div>
 </section>
 
-<!-- PANTS -->
-<section id="pants">
-  <h2 class="section-title">Pants</h2>
+<!-- ═══════════════ PANTS ═══════════════ -->
+<section id="pants" class="collection">
+  <div class="section-head">
+    <span class="eyebrow">The Collection</span>
+    <h2 class="section-title">Pants</h2>
+  </div>
   <div class="products">
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('MOM Fit Pants','₹799','images/mom1.jpg','High-waisted comfort with a tapered leg. Modern and flattering.','pants')">
-        <img src="images/mom1.jpg">
+        <img src="images/mom1.jpg" alt="MOM Fit Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>MOM Fit Pants</h3>
@@ -183,7 +290,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Baggy Pants','₹899','images/baggy1.jpg','Wide-leg, relaxed silhouette. The ultimate streetwear statement.','pants')">
-        <img src="images/baggy1.jpg">
+        <img src="images/baggy1.jpg" alt="Baggy Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Baggy Pants</h3>
@@ -195,7 +302,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Gurkha Pants','₹799','images/gurkha1.jpg','Double-buckle waistband with a wide, tapered leg. Elevated and distinctive.','pants')">
-        <img src="images/gurkha1.jpg">
+        <img src="images/gurkha1.jpg" alt="Gurkha Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Gurkha Pants</h3>
@@ -207,7 +314,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Linen Pants','₹849','images/linen1.jpg','Breathable linen for summer days. Light, airy and effortlessly stylish.','pants')">
-        <img src="images/linen1.jpg">
+        <img src="images/linen1.jpg" alt="Linen Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Linen Pants</h3>
@@ -219,7 +326,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Relaxed Fit Jeans','₹899','images/relaxed1.jpg','Easy-wearing denim with room to move. Classic five-pocket style.','pants')">
-        <img src="images/relaxed1.jpg">
+        <img src="images/relaxed1.jpg" alt="Relaxed Fit Jeans" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Relaxed Fit Jeans</h3>
@@ -231,7 +338,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Cargo Pants','₹749','images/cargo1.jpg','Utility-first design with multiple pockets. Built for action, styled for streets.','pants')">
-        <img src="images/cargo1.jpg">
+        <img src="images/cargo1.jpg" alt="Cargo Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Cargo Pants</h3>
@@ -243,7 +350,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Torn Jeans','₹799','images/torn1.jpg','Distressed detailing for an edgy, lived-in look. Fashion-forward denim.','pants')">
-        <img src="images/torn1.jpg">
+        <img src="images/torn1.jpg" alt="Torn Jeans" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Torn Jeans</h3>
@@ -255,7 +362,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Ankle Pants','₹599','images/ankle1.jpg','Cropped at the ankle for a sharp, clean finish. Slim and sophisticated.','pants')">
-        <img src="images/ankle1.jpg">
+        <img src="images/ankle1.jpg" alt="Ankle Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Ankle Pants</h3>
@@ -267,7 +374,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Bootcut Jeans','₹899','images/bootcut.jpg','Slim through the thigh, flared at the boot. A classic silhouette reborn.','pants')">
-        <img src="images/bootcut.jpg">
+        <img src="images/bootcut.jpg" alt="Bootcut Jeans" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Bootcut Jeans</h3>
@@ -280,14 +387,17 @@
   </div>
 </section>
 
-<!-- TRACK PANTS -->
-<section id="trackpants">
-  <h2 class="section-title">Track Pants</h2>
+<!-- ═══════════════ TRACK PANTS ═══════════════ -->
+<section id="trackpants" class="collection">
+  <div class="section-head">
+    <span class="eyebrow">The Collection</span>
+    <h2 class="section-title">Track Pants</h2>
+  </div>
   <div class="products">
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Classic Track Pants','₹599','images/track1.jpg','Everyday comfort with elastic waist and tapered fit. Your go-to athleisure.','trackpants')">
-        <img src="images/track1.jpg">
+        <img src="images/track1.jpg" alt="Classic Track Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Classic Track Pants</h3>
@@ -299,7 +409,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Sport Fit Track Pants','₹499','images/track2.jpg','Performance fabric with moisture-wicking properties. Train hard, look good.','trackpants')">
-        <img src="images/track2.jpg">
+        <img src="images/track2.jpg" alt="Sport Fit Track Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Sport Fit Track Pants</h3>
@@ -311,7 +421,7 @@
 
     <div class="product">
       <div class="product-img-wrap" onclick="openQuickView('Premium Cotton Track Pants','₹799','images/track3.jpg','100% cotton softness with a premium finish. Comfort elevated.','trackpants')">
-        <img src="images/track3.jpg">
+        <img src="images/track3.jpg" alt="Premium Cotton Track Pants" loading="lazy">
         <div class="quick-view-btn">Quick View</div>
       </div>
       <h3>Premium Cotton Track Pants</h3>
@@ -324,19 +434,29 @@
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="contact">
-  <h2>Contact Us</h2>
-  <p>📞 Phone: <a href="tel:+917010085603">+91 7010085603</a></p>
-  <p>📧 Email: raremensclothingtvk@gmail.com</p>
+<!-- ═══════════════ PROMISE STRIP ═══════════════ -->
+<section class="promise">
+  <div><b>Free Delivery</b><span>On every order</span></div>
+  <div><b>Cash on Delivery</b><span>Pay when it arrives</span></div>
+  <div><b>Easy Returns</b><span>Hassle-free exchange</span></div>
+  <div><b>WhatsApp Support</b><span>We reply fast</span></div>
 </section>
 
-<!-- FOOTER -->
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section id="contact" class="contact">
+  <span class="eyebrow">Get in Touch</span>
+  <h2 class="section-title">Contact Us</h2>
+  <p>Phone: <a href="tel:+917010085603">+91 7010085603</a></p>
+  <p>Email: <a href="mailto:raremensclothingtvk@gmail.com">raremensclothingtvk@gmail.com</a></p>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
+  <div class="footer-wordmark">RARE</div>
   <div class="footer">
     <div>
       <h3>Rare Mens Clothing</h3>
-      <p>Premium Fashion</p>
+      <p>Premium Fashion for Modern Men</p>
     </div>
     <div>
       <h3>Address</h3>
@@ -348,40 +468,45 @@
       <h3>Follow Us</h3>
       <div class="social-icons">
         <a href="https://www.instagram.com/raremens_clothing?igsh=dTdpbG4wcW9kMzcw" target="_blank" rel="noopener noreferrer">
-  <img src="images/instagram.png" alt="Follow us on Instagram" style="width:30px;">
-</a>
-        <a href="https://wa.me/917010085603" target="_blank"><img src="images/whatsapp.png"></a>
+          <img src="images/instagram.png" alt="Follow us on Instagram">
+        </a>
+        <a href="https://wa.me/917010085603" target="_blank" rel="noopener noreferrer"><img src="images/whatsapp.png" alt="WhatsApp"></a>
       </div>
     </div>
   </div>
+  <div class="footer-bottom">© 2026 Rare Mens Clothing. All rights reserved.</div>
 </footer>
 
-<script type="module" src="script.js"></script>
+<!-- Firebase (compat SDK — plain scripts, no modules needed) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/917010085603?text=Hello%20Greetings%20from%20Rare%20Mens%20Clothing!" class="whatsapp-float" target="_blank">
-  <img src="images/whatsapp.png">
+<!-- Shop logic: cart, quick view, checkout (must load AFTER the page HTML above) -->
+<script src="shop.js"></script>
+<script src="ui.js"></script>
+
+<!-- FLOATING WHATSAPP / CALL -->
+<a href="https://wa.me/917010085603?text=Hello%20Greetings%20from%20Rare%20Mens%20Clothing!" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <img src="images/whatsapp.png" alt="">
 </a>
-<a href="tel:+917010085603" class="call-float">
+<a href="tel:+917010085603" class="call-float" aria-label="Call now">
   <img src="images/phone.png" alt="Call Now">
 </a>
 
-<!-- CART DRAWER -->
+<!-- ═══════════════ CART DRAWER ═══════════════ -->
 <div id="cartDrawer" class="cart-drawer">
   <div class="cart-header">
     <h2>Your Cart</h2>
-    <span class="close-cart" onclick="toggleCart()">✖</span>
+    <span class="close-cart" onclick="toggleCart()">✕</span>
   </div>
   <ul id="cart-items"></ul>
-  <h3>Total ₹<span id="cart-total">0</span></h3>
+  <h3 class="cart-total-line">Total ₹<span id="cart-total">0</span></h3>
   <button class="checkout-btn" onclick="checkout()">Checkout via WhatsApp</button>
 </div>
 
 <div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
 
-<!-- ═══════════════════════════════════════
-     DELIVERY DETAILS MODAL
-════════════════════════════════════════ -->
+<!-- ═══════════════ DELIVERY DETAILS MODAL ═══════════════ -->
 <div id="deliveryModal">
   <div class="modal-card">
     <span class="drag-handle"></span>
@@ -440,16 +565,14 @@
     </div>
     <div class="modal-footer">
       <button class="btn-confirm" onclick="confirmOrder()">
-        <span>💬</span> Confirm & Order via WhatsApp
+        <span>💬</span> Confirm &amp; Order via WhatsApp
       </button>
       <button class="btn-cancel" onclick="closeDeliveryModal()">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════
-     QUICK VIEW MODAL
-════════════════════════════════════════ -->
+<!-- ═══════════════ QUICK VIEW MODAL ═══════════════ -->
 <div id="quickViewModal">
   <div class="qv-card">
     <button class="qv-close" onclick="closeQuickView()">✕</button>
@@ -463,6 +586,13 @@
         <div class="qv-price" id="qv-price"></div>
         <p class="qv-desc" id="qv-desc"></p>
         <div class="qv-divider"></div>
+
+        <!-- COLOURS (hidden automatically when a product has none) -->
+        <div class="field-group" id="qv-color-group" style="display:none;">
+          <label>Colour: <span id="qv-color-selected" class="qv-color-name"></span></label>
+          <div class="qv-colors" id="qv-colors"></div>
+        </div>
+
         <div class="field-group">
           <label>Size</label>
           <select id="qv-size" class="qv-select">
