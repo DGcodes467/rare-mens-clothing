@@ -130,7 +130,10 @@ var SALE_LABEL = "Festive Sale is Live";                   // text on the bar
       var a = el("a", "mm-promo");
       a.href = "#" + p.id;
       var img = el("img");
-      img.src = p.img; img.alt = p.title; img.loading = "lazy";
+      // use the same photo as the category tile; fall back to p.img
+     var tile = document.querySelector('.cat-tile[href="#' + p.id + '"] img');
+      img.src = tile ? tile.getAttribute("src") : p.img;
+      img.alt = p.title; img.loading = "lazy";
       a.appendChild(img);
       a.appendChild(el("span", "mm-promo-title", p.title));
       a.appendChild(el("span", "mm-tag", "FLAT \u20B9200 OFF"));
